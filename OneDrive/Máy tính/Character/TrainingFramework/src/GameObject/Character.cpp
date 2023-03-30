@@ -1,4 +1,5 @@
 #include"Character.h"
+#include "GameField.h"
 
 
 Character::~Character() {
@@ -16,6 +17,9 @@ void Character::SetVy(float _vy) {
 float Character::GetVy() {
 	return vy;
 }
+bool Character::GetCollision() {
+	return m_isCollision;
+}
 void Character::CheckCollision(std::shared_ptr<Sprite2D> stage) {
 	int x = this->Get2DPosition().x;
 	int y =	this->Get2DPosition().y;
@@ -32,16 +36,18 @@ void Character::CheckCollision(std::shared_ptr<Sprite2D> stage) {
 			y-h/2 < y2 + h2/2 &&
 			h/2 + y >y2-h2/2
 			) {
-			m_isCollsion = true;
+			m_isCollision = true;
 		}
 		else {
 			// No collision
 		}
 }
 
-void Character::Update(float deltaTime) {
-	if (m_isCollsion == false) {
-		Set2DPosition(Get2DPosition().x, Get2DPosition().y +g*deltaTime);
-	}
-	std::cout << g;
+void Character::Move(float deltaTime) {
+	m_isCollision = false;
+		if (m_isCollision == false) {
+			vy += g*deltaTime;
+			Set2DPosition(Get2DPosition().x+vx*deltaTime, Get2DPosition().y +vy*deltaTime);
+		}
+
 }

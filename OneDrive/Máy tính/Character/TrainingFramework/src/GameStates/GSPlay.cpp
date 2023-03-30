@@ -52,12 +52,6 @@ void GSPlay::Init()
 	m_score = std::make_shared< Text>(shader, font, "score: 10", TextColor::RED, 1.0f);
 	m_score->Set2DPosition(Vector2(5.0f, 25.0f));
 
-	shader = ResourceManagers::GetInstance()->GetShader("Animation");
-	texture = ResourceManagers::GetInstance()->GetTexture("Actor1_2.tga");
-	std::shared_ptr<Character> obj = std::make_shared<Character>(model, shader, texture, 9, 6, 3, 0.1f);
-	obj->Set2DPosition(240.0f, 400.0f);
-	obj->SetSize(30, 40);
-	m_listAnimation.push_back(obj);
 	m_KeyPress = 0;
 
 	m_gameField = std::make_shared<GameField>();
@@ -86,8 +80,22 @@ void GSPlay::HandleEvents()
 	if (m_KeyPress & 1)//Handle event when key 'A' was pressed
 	{
 		//Code to handle event
-		//m_gameField->SetPhase(Holding);
+		if (m_gameField->IsIdle()) {
+			m_gameField->power += 2;
+		}
 	}
+	else {
+		if (m_gameField->IsIdle()) {
+			if (m_gameField->power > 0) {
+				m_gameField->power = 0;
+				m_gameField->SetPhase(Phase::Jumping);
+			}
+			else {
+				m_gameField->SetPhase(Phase::Idle);
+			}
+		}
+	}
+
 	if (m_KeyPress & (1 << 1))//Handle event when key 'S' was pressed
 	{
 		//Code to handle event
@@ -149,6 +157,7 @@ void GSPlay::HandleKeyEvents(int key, bool bIsPressed)//Insert more case if you 
 //Handle button event
 void GSPlay::HandleTouchEvents(float x, float y, bool bIsPressed)
 {
+
 	for (auto button : m_listButton)
 	{
 		if(button->HandleTouchEvents(x, y, bIsPressed))
