@@ -1,0 +1,40 @@
+.imgBlog{
+  width:20vw;
+  height: 20vh;
+
+}
+
+.blog{
+  width:30vw;
+  height:30vh;
+  margin:0px 0px 0px 0px;
+}
+.blogList{
+  width: 90vw;
+  margin: auto;
+}
+.blog{
+  display: inline-block;
+}
+.header{
+  width: auto;
+  height:9vh;
+  background-color: aqua;
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-weight: bold ;
+  font-style: italic;
+  font-size: 40px;
+  text-align: center;
+  padding:20px;   
+}
+.searchBox{
+  text-align: center;
+  margin: 20px 0 20px 0;
+}
+.searchInput{
+  width: 60vw;
+  height: 4vh;
+  border-radius: 100px;
+  border-color: red;
+  /* border-radius: 50%; */
+}
